@@ -5,6 +5,7 @@ html {
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
+  background: #ffffff;
 }
 
 .song {
@@ -32,27 +33,52 @@ body {
   font-size: 4.5rem;
 }
 
+.one h1 {
+  margin: 0;
+}
+
 .two {
   font-size: 1.2rem;
   font-weight: lighter;
+  line-height: 1.8;
+}
+
+.chinese-text {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9em;
+  opacity: 0.9;
 }
 
 .three {
   font-size: 3rem;
+  line-height: 1.5;
 }
 
 .four .text-box {
-  border: 3px solid #aaa;
+  border: 3px solid #9f3c8f;
   border-radius: 5px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 15px;
   position: relative;
-  width: 600px;
+  width: 90%;
+  max-width: 600px;
 }
 
 .text-box p {
-  margin: 0;
+  margin: 0 0 15px 0;
   text-align: left;
+  line-height: 1.6;
+}
+
+.text-box p:last-of-type {
+  margin-bottom: 0;
+}
+
+.hbd-chatbox-chinese {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
 }
 
 .text-box span {
@@ -67,6 +93,7 @@ body {
   padding: .5rem 1rem;
   position: absolute;
   right: 5px;
+  cursor: pointer;
 }
 
 .five p {
@@ -74,6 +101,7 @@ body {
   left: 0;
   position: absolute;
   right: 0;
+  line-height: 1.6;
 }
 
 .idea-3 strong {
@@ -83,7 +111,13 @@ body {
 }
 
 .five .idea-5 {
-  font-size: 4rem;
+  font-size: 3.5rem;
+  line-height: 1.4;
+}
+
+.smile-icon {
+  display: block;
+  margin-top: 0.5rem;
 }
 
 .idea-5 span, .idea-6 span, .wish-hbd span {
@@ -93,7 +127,6 @@ body {
 .idea-6 span{
   font-size: 15rem;
 }
-
 
 .six {
   position: relative;
@@ -105,15 +138,53 @@ body {
   display: inline-block;
   height: 350px;
   max-width: 100%;
-  /* height: auto; */
 }
 
 .six .hat {
   left: 41.5%;
   position: absolute;
-  /* transform: scale(0.1); */
   top: -35%;
   width: 80px;
+}
+
+/* Photo Slideshow Styles */
+.photo-slideshow {
+  position: relative;
+  top: 15vh;
+  z-index: 2;
+  padding: 20px;
+  visibility: hidden;
+}
+
+.slideshow-container {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  height: 400px;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.slide-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.slideshow-text {
+  font-size: 1.8rem;
+  margin-top: 30px;
+  color: #ff69b4;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 .baloons img {
@@ -138,6 +209,7 @@ body {
   position: fixed;
   top: 0;
   width: 100vw;
+  z-index: 0;
 }
 
 .eight svg {
@@ -213,16 +285,37 @@ body {
   font-size: 2rem;
   font-weight: lighter;
   margin: 10px 0 0;
+  line-height: 1.6;
+}
+
+.nine {
+  z-index: 10;
 }
 
 .nine p {
   font-size: 2rem;
   font-weight: lighter;
+  line-height: 1.6;
 }
 
-#replay {
+.replay-btn {
   cursor: pointer;
-  z-index: 3;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50px;
+  display: inline-block;
+  color: #fefefe;
+  font-weight: 600;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.replay-btn:hover {
+  transform: scale(1.05);
+}
+
+.last-smile {
+  font-size: 3rem;
 }
 
 /* Media Queries */
@@ -250,43 +343,152 @@ body {
   }
 }
 
-@media screen and (max-width: 500px) {
-  .container {
-    width: 90%;
+/* Mobile Optimization */
+@media screen and (max-width: 768px) {
+  .one {
+    font-size: 3rem;
+  }
+
+  .two {
+    font-size: 1rem;
+    padding: 0 20px;
+  }
+
+  .three {
+    font-size: 2rem;
   }
 
   .four .text-box {
-    width: 90%;
+    width: 85%;
+    padding: 12px;
   }
 
   .text-box .fake-btn {
-    bottom: -38px;
+    bottom: -45px;
     right: 5px;
+    font-size: 0.9rem;
   }
 
-  .idea-5 span {
-    display: block;
+  .five p {
+    font-size: 1.6rem;
+    padding: 0 15px;
+  }
+
+  .five .idea-5 {
+    font-size: 2.5rem;
   }
 
   .idea-6 span {
     font-size: 10rem;
   }
 
+  .six img {
+    height: 280px;
+  }
+
   .six .hat {
-    /* top: -20px; */
-    width: 50px;
+    width: 60px;
+  }
+
+  /* Slideshow Mobile Styles */
+  .slideshow-container {
+    max-width: 90%;
+    height: 300px;
+  }
+
+  .slideshow-text {
+    font-size: 1.3rem;
+    margin-top: 20px;
   }
 
   .wish-hbd {
-    font-size: 2.2em;
+    font-size: 2em;
   }
 
   .wish h5 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .nine p {
-    font-size: 1.5rem;
-    font-weight: lighter;
+    font-size: 1.4rem;
+    padding: 0 20px;
+  }
+
+  .replay-btn {
+    padding: 12px 25px;
+    font-size: 1.2rem;
+  }
+
+  .last-smile {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .one {
+    font-size: 2.5rem;
+  }
+
+  .two {
+    font-size: 0.9rem;
+  }
+
+  .three {
+    font-size: 1.8rem;
+  }
+
+  .four .text-box {
+    width: 90%;
+    font-size: 0.85rem;
+  }
+
+  .text-box .fake-btn {
+    bottom: -38px;
+    font-size: 0.85rem;
+  }
+
+  .five p {
+    font-size: 1.3rem;
+  }
+
+  .five .idea-5 {
+    font-size: 2rem;
+  }
+
+  .idea-6 span {
+    font-size: 8rem;
+  }
+
+  .six img {
+    height: 250px;
+  }
+
+  .six .hat {
+    width: 50px;
+  }
+
+  .slideshow-container {
+    height: 250px;
+  }
+
+  .slideshow-text {
+    font-size: 1.1rem;
+  }
+
+  .wish-hbd {
+    font-size: 1.8em;
+  }
+
+  .wish h5 {
+    font-size: 1.1rem;
+  }
+
+  .nine p {
+    font-size: 1.2rem;
+  }
+
+  .replay-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
   }
 }

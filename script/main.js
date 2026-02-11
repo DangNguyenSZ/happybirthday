@@ -1,13 +1,13 @@
 // trigger to play music in the background with sweetalert
 window.addEventListener('load', () => {
     Swal.fire({
-        title: 'Do you want to play music in the background?',
+        title: 'Do you want to play music? 要播放音乐吗？',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
+        confirmButtonText: 'Yes 是',
+        cancelButtonText: 'No 否',
     }).then((result) => {
         if (result.isConfirmed) {
             document.querySelector('.song').play();
@@ -19,13 +19,18 @@ window.addEventListener('load', () => {
 });
 
 
-// animation timeline
+// animation timeline - FASTER VERSION WITH SLIDESHOW
 const animationTimeline = () => {
     // split chars that needs to be animated individually
     const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
+    const textBoxCharsChinese = document.getElementsByClassName("hbd-chatbox-chinese")[0];
     const hbd = document.getElementsByClassName("wish-hbd")[0];
 
     textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
+        .split("")
+        .join("</span><span>")}</span>`;
+    
+    textBoxCharsChinese.innerHTML = `<span>${textBoxCharsChinese.innerHTML
         .split("")
         .join("</span><span>")}</span>`;
 
@@ -47,8 +52,10 @@ const animationTimeline = () => {
         skewX: "-15deg"
     }
 
-    // timeline
+    // timeline - REDUCED DELAYS FOR FASTER PLAYBACK
     const tl = new TimelineMax();
+
+    gsap.set("#replay", { opacity: 0 });
 
     tl.to(".container", 0.6, {
         visibility: "visible"
@@ -67,7 +74,7 @@ const animationTimeline = () => {
             opacity: 0,
             y: 10
         },
-    "+=3.5")
+    "+=2")
     .to(".two",
         0.7,
         {
@@ -85,7 +92,7 @@ const animationTimeline = () => {
             opacity: 0,
             y: 10
         },
-    "+=3")
+    "+=1.5")
     .from(".four", 0.7, {
         scale: 0.2,
         opacity: 0,
@@ -96,15 +103,23 @@ const animationTimeline = () => {
     })
     .staggerTo(
         ".hbd-chatbox span",
-        1.5, {
+        0.8, {
             visibility: "visible",
         },
-        0.05
+        0.02
+    )
+    .staggerTo(
+        ".hbd-chatbox-chinese span",
+        0.6, {
+            visibility: "visible",
+        },
+        0.02,
+        "-=3"
     )
     .to(".fake-btn", 0.1, {
         backgroundColor: "rgb(127, 206, 248)",
     },
-    "+=4")
+    "+=2")
     .to(
         ".four",
         0.5, {
@@ -112,11 +127,11 @@ const animationTimeline = () => {
             opacity: 0,
             y: -150
         },
-    "+=1")
+    "+=0.5")
     .from(".idea-1", 0.7, ideaTextTrans)
-    .to(".idea-1", 0.7, ideaTextTransLeave, "+=2.5")
+    .to(".idea-1", 0.7, ideaTextTransLeave, "+=1.5")
     .from(".idea-2", 0.7, ideaTextTrans)
-    .to(".idea-2", 0.7, ideaTextTransLeave, "+=2.5")
+    .to(".idea-2", 0.7, ideaTextTransLeave, "+=1.5")
     .from(".idea-3", 0.7, ideaTextTrans)
     .to(".idea-3 strong", 0.5, {
         scale: 1.2,
@@ -124,9 +139,9 @@ const animationTimeline = () => {
         backgroundColor: "rgb(21, 161, 237)",
         color: "#fff",
     })
-    .to(".idea-3", 0.7, ideaTextTransLeave, "+=2.5")
+    .to(".idea-3", 0.7, ideaTextTransLeave, "+=1.5")
     .from(".idea-4", 0.7, ideaTextTrans)
-    .to(".idea-4", 0.7, ideaTextTransLeave, "+=2.5")
+    .to(".idea-4", 0.7, ideaTextTransLeave, "+=1.5")
     .from(
         ".idea-5",
         0.7, {
@@ -137,15 +152,15 @@ const animationTimeline = () => {
             z: 10,
             opacity: 0,
         },
-        "+=1.5"
+        "+=1"
     )
     .to(
-        ".idea-5 span",
+        ".idea-5 .smile-icon",
         0.7, {
             rotation: 90,
             x: 8,
         },
-        "+=1.4"
+        "+=1"
     )
     .to(
         ".idea-5",
@@ -153,7 +168,7 @@ const animationTimeline = () => {
             scale: 0.2,
             opacity: 0,
         },
-        "+=2"
+        "+=1.5"
     )
     .staggerFrom(
         ".idea-6 span",
@@ -174,7 +189,7 @@ const animationTimeline = () => {
             ease: Expo.easeOut,
         },
         0.2,
-        "+=1.5"
+        "+=1"
     )
     .staggerFromTo(
         ".baloons img",
@@ -209,7 +224,6 @@ const animationTimeline = () => {
         0.7, {
             opacity: 0,
             y: -50,
-            // scale: 0.3,
             rotation: 150,
             skewX: "30deg",
             ease: Elastic.easeOut.config(1, 0.5),
@@ -239,14 +253,46 @@ const animationTimeline = () => {
         },
         "party"
     )
-    .staggerTo(
+    // Slideshow animation - show slides one by one
+    .to(
+        ".photo-slideshow",
+        0.5, {
+            visibility: "visible",
+            opacity: 1,
+        },
+        "+=1"
+    )
+    .from(
+        ".slideshow-text",
+        0.5, {
+            opacity: 0,
+            y: 20,
+        },
+        "-=0.3"
+    );
+
+    // Animate slides sequentially
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach((slide, index) => {
+        tl.to(slide, 0.5, {
+            visibility: "visible",
+            opacity: 1,
+            scale: 1,
+        }, `+=0.5`)
+        .to(slide, 0.5, {
+            opacity: 0,
+            visibility: "hidden",
+        }, `+=${index === slides.length - 1 ? 2 : 1.5}`);
+    });
+
+    tl.staggerTo(
         ".eight svg",
         1.5, {
             visibility: "visible",
             opacity: 0,
             scale: 80,
-            repeat: 3,
-            repeatDelay: 1.4,
+            repeat: 2,
+            repeatDelay: 0.5,
         },
         0.3
     )
@@ -255,18 +301,37 @@ const animationTimeline = () => {
         y: 30,
         zIndex: "-1",
     })
-    .staggerFrom(".nine p", 1, ideaTextTrans, 1.2)
+    .to(".photo-slideshow", 0.5, {
+        opacity: 0,
+        y: 30,
+    }, "-=0.5")
+    .staggerFrom(".nine p:not(#replay)", 1, ideaTextTrans, 1.2)
     .to(
         ".last-smile",
         0.5, {
             rotation: 90,
         },
         "+=1"
-    );
+    )
+    .to("#replay", 0.8, {
+    opacity: 1,
+    y: 0
+    });
+
 
     // Restart Animation on click
-    const replyBtn = document.getElementById("replay");
-    replyBtn.addEventListener("click", () => {
-        tl.restart();
+const replayBtn = document.getElementById("replay");
+
+replayBtn.addEventListener("click", () => {
+
+    // Reset slides
+    const allSlides = document.querySelectorAll('.slide');
+    allSlides.forEach(slide => {
+        slide.style.visibility = "hidden";
+        slide.style.opacity = "0";
     });
+
+    tl.restart();
+});
+
 }
